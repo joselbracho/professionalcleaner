@@ -40,6 +40,20 @@
 
   bindForm("#contact-form", "Gracias. Recibimos tu mensaje y te contactaremos pronto.");
 
+  // Check for success parameter from Formspree redirect
+  if (window.location.search.indexOf('success=1') > -1) {
+    var $feedback = $("#form-messages");
+    if ($feedback.length) {
+      showFeedback($feedback, "success", "Tu mensaje fue enviado, pronto estaremos en contacto.");
+    }
+    // Clean up URL to prevent showing message on refresh
+    if (window.history && window.history.replaceState) {
+      var cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
+      window.history.replaceState(null, null, cleanUrl);
+    }
+  }
+
+
   var $mobileNav = $("#mobile-navbar-menu");
   $mobileNav.find("li").has("ul").addClass("has-sub");
   $mobileNav.find(".has-sub").each(function () {
