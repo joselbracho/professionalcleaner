@@ -9,13 +9,14 @@
       .show();
   }
 
-    function bindForm(selector, successMessage) {
+      function bindForm(selector, successMessage) {
     var $form = $(selector);
     if (!$form.length) {
       return;
     }
 
     $form.on("submit", function (event) {
+      event.preventDefault();
       var $feedback = $form.find(".form-feedback");
       if (!$feedback.length) {
         $feedback = $("#form-messages");
@@ -29,12 +30,40 @@
       });
 
       if (!valid) {
-        event.preventDefault();
         showFeedback($feedback, "error", "Por favor completa los campos obligatorios.");
         return;
       }
 
-      // If valid, the form will submit natively to Formspree
+      var actionUrl = $form.attr("action");
+      if (actionUrl) {
+        var formData = new FormData($form[0]);
+        $.ajax({
+          url: actionUrl,
+          method: "POST",
+          data: formData,
+          dataType: "json",
+          processData: false,
+          contentType: false,
+          success: function() {
+            showFeedback($feedback, "success", successMessage);
+            $form[0].reset();
+          },
+          error: function(xhr) {
+            var msg = "Ocurrió un problema al enviar el mensaje.";
+            if (xhr.responseJSON && xhr.responseJSON.error) {
+               if (xhr.responseJSON.error.indexOf("reCAPTCHA") !== -1) {
+                 msg = "Por favor desactiva reCAPTCHA en Formspree para que el formulario funcione.";
+               } else {
+                 msg = xhr.responseJSON.error;
+               }
+            }
+            showFeedback($feedback, "error", msg);
+          }
+        });
+      } else {
+        showFeedback($feedback, "success", successMessage);
+        $form[0].reset();
+      }
     });
   }
 
