@@ -35,9 +35,30 @@
         return;
       }
 
-      showFeedback($feedback, "success", successMessage);
-      $form.find("input[type='text'], input[type='email'], input[type='tel'], textarea").val("");
-      $form.find("select").prop("selectedIndex", 0);
+      var actionUrl = $form.attr("action");
+      if (actionUrl) {
+        var formData = new FormData($form[0]);
+        $.ajax({
+          url: actionUrl,
+          method: "POST",
+          data: formData,
+          dataType: "json",
+          processData: false,
+          contentType: false,
+          success: function() {
+            showFeedback($feedback, "success", successMessage);
+            $form.find("input[type='text'], input[type='email'], input[type='tel'], textarea").val("");
+            $form.find("select").prop("selectedIndex", 0);
+          },
+          error: function() {
+            showFeedback($feedback, "error", "Ocurrió un problema al enviar el mensaje. Inténtalo nuevamente.");
+          }
+        });
+      } else {
+        showFeedback($feedback, "success", successMessage);
+        $form.find("input[type='text'], input[type='email'], input[type='tel'], textarea").val("");
+        $form.find("select").prop("selectedIndex", 0);
+      }
     });
   }
 
