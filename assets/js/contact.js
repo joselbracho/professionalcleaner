@@ -9,14 +9,13 @@
       .show();
   }
 
-      function bindForm(selector, successMessage) {
+        function bindForm(selector, successMessage) {
     var $form = $(selector);
     if (!$form.length) {
       return;
     }
 
     $form.on("submit", function (event) {
-      event.preventDefault();
       var $feedback = $form.find(".form-feedback");
       if (!$feedback.length) {
         $feedback = $("#form-messages");
@@ -30,44 +29,33 @@
       });
 
       if (!valid) {
+        event.preventDefault();
         showFeedback($feedback, "error", "Por favor completa los campos obligatorios.");
         return;
       }
-
-      var actionUrl = $form.attr("action");
-      if (actionUrl) {
-        var formData = new FormData($form[0]);
-        $.ajax({
-          url: actionUrl,
-          method: "POST",
-          data: formData,
-          dataType: "json",
-          processData: false,
-          contentType: false,
-          success: function() {
-            showFeedback($feedback, "success", successMessage);
-            $form[0].reset();
-          },
-          error: function(xhr) {
-            var msg = "Ocurrió un problema al enviar el mensaje.";
-            if (xhr.responseJSON && xhr.responseJSON.error) {
-               if (xhr.responseJSON.error.indexOf("reCAPTCHA") !== -1) {
-                 msg = "Por favor desactiva reCAPTCHA en Formspree para que el formulario funcione.";
-               } else {
-                 msg = xhr.responseJSON.error;
-               }
-            }
-            showFeedback($feedback, "error", msg);
-          }
-        });
-      } else {
-        showFeedback($feedback, "success", successMessage);
-        $form[0].reset();
-      }
+      // Submit natively
     });
   }
 
   bindForm("#contact-form", "Gracias. Recibimos tu mensaje y te contactaremos pronto.");
+
+  // Check for success parameter from Formspree redirect
+  if (window.location.search.indexOf('success=1') > -1) {
+    var $feedback = $("#form-messages");
+    if ($feedback.length) {
+      showFeedback($feedback, "success", "Tu mensaje fue enviado, pronto estaremos en contacto.");
+    }
+    var $form = $("#contact-form");
+    if ($form.length) {
+      $form[0].reset();
+    }
+    // Clean up URL to prevent showing message on refresh
+    if (window.history && window.history.replaceState) {
+      var cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
+      window.history.replaceState(null, null, cleanUrl);
+    }
+  }
+
 
   // Check for success parameter from Formspree redirect
   if (window.location.search.indexOf('success=1') > -1) {
