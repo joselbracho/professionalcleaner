@@ -225,18 +225,4 @@
     }
   });
 
-  $(".js-renaware-play").on("click", function () {
-    var $btn = $(this);
-    var $frame = $btn.closest(".renaware-player__frame");
-    var $video = $frame.find("video");
-    var videoSrc = $btn.attr("data-video-src");
-    if ($video.attr("src") !== videoSrc) {
-      $video.attr("src", videoSrc);
-    }
-    $frame.addClass("is-playing");
-    var playPromise = $video[0].play();
-    if (playPromise && typeof playPromise.catch === "function") {
-      playPromise.catch(function () {});
-    }
-  });
 })(jQuery);

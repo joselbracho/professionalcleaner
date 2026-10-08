@@ -430,7 +430,7 @@ body {
 }
 
 .rs-choose.choose-style2 .video-img {
-  background-image: url("../img/bg/why-choose-poster.jpg");
+  background-image: url("../img/bg/professional-cleaner-poster.jpg");
   background-position: center 40%;
 }
 
@@ -711,8 +711,8 @@ body.why-choose-lightbox-open #scrollUp {
 }
 
 .rs-services.services-style3 .images-bg {
-  background-image: url("../img/bg/cortiexpress-poster.jpg");
-  background-position: center 58%;
+  background-color: #f4f5f8;
+  background-image: none;
   position: relative;
 }
 
@@ -1098,7 +1098,6 @@ body.why-choose-lightbox-open #scrollUp {
 [id="contact"],
 [id="catalogo"],
 [id="persianas"],
-[id="renaware"],
 [id="mapa"] {
   scroll-margin-top: 90px;
 }
@@ -1157,150 +1156,10 @@ body.why-choose-lightbox-open #scrollUp {
   }
 }
 
-.renaware-section {
-  padding-top: 0;
-  background: #fff;
-}
-
-.renaware-logo-wrap {
-  margin-top: 28px;
-}
-
-.renaware-logo-wrap img {
-  display: block;
-  width: min(520px, 90vw);
-  height: auto;
-  margin: 0 auto;
-}
-
-.renaware-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 520px;
-}
-
-.renaware-half {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 64px 40px;
-  min-height: 520px;
-}
-
-.renaware-half--catalog {
-  background: #de4328;
-  text-decoration: none;
-  color: #fff;
-}
-
-.renaware-half--catalog:hover,
-.renaware-half--catalog:focus {
-  color: #fff;
-}
-
-.renaware-half--aqua {
-  background: #52BBB4;
-}
-
-.renaware-kicker {
-  display: block;
-  margin-bottom: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #fff;
-}
-
-.renaware-half-title {
-  margin: 0 0 28px;
-  font-size: 36px;
-  line-height: 1.2;
-  font-weight: 700;
-  color: #fff;
-}
-
-.renaware-half--catalog .readon {
-  color: #01539f;
-}
-
-.renaware-half--catalog:hover .readon {
-  background: #fff;
-  color: #de4328;
-}
-
-.renaware-player {
-  width: min(100%, 560px);
-}
-
-.renaware-player__frame {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border-radius: 8px;
-  background: #083346;
-  box-shadow: 0 16px 36px rgba(8, 51, 70, 0.22);
-}
-
-.renaware-player__video {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: #083346;
-}
-
-.renaware-player__play {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 80px;
-  height: 80px;
-  border: 0;
-  border-radius: 50%;
-  background: var(--brand-yellow, #ffd600);
-  color: #01539f;
-  cursor: pointer;
-  appearance: none;
-  z-index: 2;
-}
-
-.renaware-player__play i {
-  font-size: 22px;
-  line-height: 80px;
-  display: block;
-}
-
-.renaware-player__frame.is-playing .renaware-player__play {
-  display: none;
-}
-
 @media (max-width: 991px) {
-  #renaware.renaware-section,
   #contact.rs-contact {
     margin-top: 0;
     padding-top: 0;
-  }
-
-  .renaware-split,
-  .renaware-half {
-    min-height: 0;
-  }
-
-  .renaware-split {
-    grid-template-columns: 1fr;
-  }
-
-  .renaware-half {
-    padding: 48px 24px;
-  }
-
-  .renaware-half-title {
-    font-size: 28px;
   }
 }
 
@@ -1784,7 +1643,8 @@ body.gallery-lightbox-open #scrollUp {
   text-transform: uppercase;
 }
 
-.rs-project.project-style1 .project-item .project-img img {
+.rs-project.project-style1 .project-item .project-img img,
+.rs-project.project-style1 .project-item .project-img video {
   width: 100%;
   height: 100%;
   object-fit: contain;
